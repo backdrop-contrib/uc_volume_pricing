@@ -1,0 +1,7 @@
+name = Volume Pricing
+description = Adds volume (bulk) pricing to Ubercart products
+dependencies[] = uc_product
+package = Ubercart - extra
+core = 7.x
+
+configure = admin/store/settings/volume_pricing
