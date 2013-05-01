@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Discount Coupons administration pages.
+ * Volume Pricing administration pages.
  */
 
 /**
