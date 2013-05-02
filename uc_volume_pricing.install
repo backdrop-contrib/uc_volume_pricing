@@ -1,36 +1,35 @@
 <?php
-
 /**
  * Define the 'uc_volume_pricing' table structure.
  *
- * @return
- *   The schema which contains the structure for the volume pricing module's tables.
+ * @return The schema which contains the structure for the 
+ * volume pricing module's tables.
  */
 function uc_volume_pricing_schema() {
-	$schema = array();
+  $schema = array();
   $schema['uc_volume_pricing'] = array(
-    'description' => t('A table containing the volume pricing for products.'),
-    'fields' => array(
-      'nid' => array(
-      	'type' => 'int',
-      	'unsigned' => TRUE,
-      	'not null' => TRUE,
-      	'default' => 0,
-      	'description' => t('The primary identifier for a product.')
+		'description' => 'A table containing the volume pricing for products.',
+		'fields' => array(
+			'nid' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => TRUE,
+				'default' => 0,
+				'description' => 'The primary identifier for a product.',
       ),
       'vid' => array(
       	'type' => 'int',
       	'unsigned' => TRUE,
       	'not null' => TRUE,
       	'default' => 0,
-      	'description' => t('The version identifier for a product.')
+      	'description' => 'The version identifier for a product.',
       ),
       'min' => array(
       	'type' => 'int', 
       	'unsigned' => TRUE,
       	'not null' => TRUE,
       	'default' => 0,
-      	'description' => t('The minimum quantity range for a volume pricing entry.')
+      	'description' => 'The minimum quantity range for a volume pricing entry.',
       ),
       'price' => array(
       	'type' => 'numeric',
@@ -39,20 +38,17 @@ function uc_volume_pricing_schema() {
       	'default' => 0,
       	'precision' => 13,
       	'scale' => 3 ,
-      	'description' => t('The price for a volume pricing entry.')
+      	'description' => 'The price for a volume pricing entry.',
       ),
     ),
   );
-  
-  return $schema;
+	return $schema;
 }
 
 /**
- * Implementation of hook_uninstall().
- *
+ * Implements hook_uninstall().
  */
 function uc_volume_pricing_uninstall() {
-  // Clear the cache tables
   cache_clear_all('*', 'cache', TRUE);
   cache_clear_all('*', 'cache_filter', TRUE);
   cache_clear_all('*', 'cache_menu', TRUE);

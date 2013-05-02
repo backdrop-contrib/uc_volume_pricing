@@ -5,7 +5,7 @@
  */
 
 /**
- * Implementation of hook_admin().
+ * Implements hook_admin().
  * 
  * Store-wide uc_volume-pricing settings
  */
