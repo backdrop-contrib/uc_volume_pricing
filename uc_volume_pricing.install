@@ -13,9 +13,9 @@
 /**
  * Define the 'uc_volume_pricing' table structure.
  *
- *   @return array
- * The schema which contains the structure for the 
- * volume pricing module's tables.
+ * @return array
+ *   The schema which contains the structure for the 
+ *   volume pricing module's tables.
  */
 function uc_volume_pricing_schema() {
   $schema = array();
