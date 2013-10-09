@@ -8,13 +8,12 @@
  * Ubercart Core: 3.x
  *
  * Original code by Acro Media Inc (http://www.acromediainc.com)
- * 
  */
- 
+
 /**
  * Define the 'uc_volume_pricing' table structure.
  *
- * @return 
+ *   @return array
  * The schema which contains the structure for the 
  * volume pricing module's tables.
  */
@@ -38,7 +37,7 @@ function uc_volume_pricing_schema() {
         'description' => 'The version identifier for a product.',
       ),
       'min' => array(
-        'type' => 'int', 
+        'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
         'default' => 0,

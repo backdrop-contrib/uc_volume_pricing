@@ -20,10 +20,12 @@ a single unit.
 INSTALLATION
 ------------
 
-Copy the folder into your modules directory (or within Ubercart directory to keep things in order).
+Copy the folder into your modules directory (or within Ubercart directory 
+to keep things in order).
 
 
 MAINTENANCE
 -------------
 
-This project is not actively maintained, but I will try to help with any bugs/issues/etc.
+This project is not actively maintained, but I will try to help 
+with any bugs/issues/etc.
