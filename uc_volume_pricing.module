@@ -150,7 +150,7 @@ function uc_volume_pricing_form_uc_cart_view_form_alter(&$form, &$form_state) {
     foreach (element_children($form['items']) as $i) {
       if (!empty($form['items'][$i]['nid'])) {
         $product = uc_product_load_variant($form['items'][$i]['nid']['#value']);
-        $volume_set = db_query("SELECT price,min FROM {uc_volume_pricing} WHERE vid=:vid AND min>:min ORDER BY min DESC", array(':vid' => $product->nid, ':min' => $form['items'][$i]['qty']['#default_value']))->fetchObject();
+        $volume_set = db_query("SELECT price,min FROM {uc_volume_pricing} WHERE vid=:vid AND min>:min ORDER BY min ASC", array(':vid' => $product->nid, ':min' => $form['items'][$i]['qty']['#default_value']))->fetchObject();
         if (!empty($volume_set) && $form['items'][$i]['qty']['#default_value'] < $volume_set->min) {
           $remaining = ($volume_set->min - $form['items'][$i]['qty']['#default_value']);
           $savings = uc_currency_format($product->sell_price - $volume_set->price);
