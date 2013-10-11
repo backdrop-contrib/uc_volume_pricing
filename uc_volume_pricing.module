@@ -154,9 +154,9 @@ function uc_volume_pricing_form_uc_cart_view_form_alter(&$form, &$form_state) {
         if (!empty($volume_set) && $form['items'][$i]['qty']['#default_value'] < $volume_set->min) {
           $remaining = ($volume_set->min - $form['items'][$i]['qty']['#default_value']);
           $savings = uc_currency_format($product->sell_price - $volume_set->price);
-          $alert[] = format_plural($remaining, 'Purchase 1 more <strong>' . $product->title . '</strong> and save and additional !savings per item!', 
-            'Purchase @count more <strong>' . $product->title . 's</strong> and save and additional !savings per item!', 
-            array('!savings' => $savings)
+          $alert[] = format_plural($remaining, 'Purchase 1 more <strong>!title</strong> and save and additional !savings per item!', 
+            'Purchase @count more <strong>!titles</strong> and save and additional !savings per item!', 
+            array('!title' => $product->title, '!savings' => $savings)
             );
         }
       }
