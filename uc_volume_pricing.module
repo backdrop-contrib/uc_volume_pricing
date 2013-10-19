@@ -91,7 +91,7 @@ function uc_volume_pricing_node_update($node) {
     }
 
     foreach ($node->volume_pricing as $volume_set) {
-      if ($volume_set['min'] > 0) {
+      if (isset($volume_set['min']) && $volume_set['min'] > 0) {
         db_insert('uc_volume_pricing')
           ->fields(array(
             'nid' => $node->nid,
@@ -190,7 +190,7 @@ function uc_volume_pricing_form_uc_cart_view_form_alter(&$form, &$form_state) {
  * Implements hook_form_alter().
  */
 function uc_volume_pricing_form_alter(&$form, &$form_state, $form_id) {
-  if ($form_id == 'product_node_form') {
+  if (uc_product_is_product_form($form)) {
     $form['base']['volume_pricing'] = array(
       '#type' => 'fieldset',
       '#tree' => TRUE,
