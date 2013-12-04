@@ -123,6 +123,16 @@ function uc_volume_pricing_node_revision_delete($node) {
     ->execute();
 }
 
+/**
+ * Implements hook_views_api().
+ */
+function uc_volume_pricing_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'uc_volume_pricing') . '/views',
+  );
+}
+
 /******************************************************************************
  * Hook Functions (Ubercart)                                                  *
  ******************************************************************************/
