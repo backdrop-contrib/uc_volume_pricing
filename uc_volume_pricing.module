@@ -44,7 +44,7 @@ function uc_volume_pricing_node_load($nodes, $types) {
   }
 
   foreach ($nodes as $node) {
-    if ($node->type == 'product') {
+    if (uc_product_is_product($node->type)) {
       $node->volume_pricing = array();
       $results = db_query("SELECT * FROM {uc_volume_pricing} WHERE nid=:nid AND vid=:vid ORDER BY min ASC", array(':nid' => $node->nid, ':vid' => $node->vid));
       $i = 0;
@@ -61,7 +61,7 @@ function uc_volume_pricing_node_load($nodes, $types) {
  * Implements hook_node_validate().
  */
 function uc_volume_pricing_node_validate($node, $form, &$form_state) {
-  if ($node->type == 'product') {
+  if (uc_product_is_product($node->type)) {
     $node->volume_pricing = array();
     $i = 0;
     while (!empty($form_state['values']['volume-set' . $i])) {
@@ -164,8 +164,8 @@ function uc_volume_pricing_form_uc_cart_view_form_alter(&$form, &$form_state) {
         if (!empty($volume_set) && $form['items'][$i]['qty']['#default_value'] < $volume_set->min) {
           $remaining = ($volume_set->min - $form['items'][$i]['qty']['#default_value']);
           $savings = uc_currency_format($product->sell_price - $volume_set->price);
-          $alert[] = format_plural($remaining, 'Purchase 1 more <strong>!title</strong> and save and additional !savings per item!', 
-            'Purchase @count more <strong>!titles</strong> and save and additional !savings per item!', 
+          $alert[] = format_plural($remaining, 'Purchase 1 more <strong>!title</strong> and save an additional !savings per item!',
+            'Purchase @count more <strong>!titles</strong> and save an additional !savings per item!',
             array('!title' => $product->title, '!savings' => $savings)
             );
         }
@@ -200,7 +200,7 @@ function uc_volume_pricing_form_uc_cart_view_form_alter(&$form, &$form_state) {
  * Implements hook_form_alter().
  */
 function uc_volume_pricing_form_alter(&$form, &$form_state, $form_id) {
-  if (uc_product_is_product_form($form)) {
+  if (isset($form['#node_edit_form']) && uc_product_is_product($form['type']['#value'])) {
     $form['base']['volume_pricing'] = array(
       '#type' => 'fieldset',
       '#tree' => TRUE,

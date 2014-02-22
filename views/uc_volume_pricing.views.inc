@@ -26,7 +26,7 @@ function uc_volume_pricing_views_data() {
     'title' => t('Minimum Quantity'),
     'help' => t('The min setting before price can be met.'),
     'field' => array(
-      'handler' => 'views_handler_field', //uc_volume_pricing_handler_field_min
+      'handler' => 'views_handler_field', //uc_volume_pricing_handler_field_min multiple value fix needed
       'click sortable' => TRUE,
     ),
     'sort' => array(
