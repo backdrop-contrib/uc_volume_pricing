@@ -33,6 +33,30 @@ function uc_volume_pricing_menu() {
 }
 
 /**
+ * Implements hook_variable_info().
+ */
+function uc_volume_pricing_variable_info($options) {
+  $variables['uc_volume_pricing_show_in_cart'] = array(
+    'type' => 'boolean',
+    'title' => t('Show possible savings message in cart review.', array(), $options),
+    'default' => TRUE,
+    'description' =>  t('', array(), $options),
+    'group' => 'uc_volume_pricing',
+    'localize' => TRUE,
+  );
+  $variables['uc_volume_pricing_cart_message'] = array(
+    'type' => 'string',
+    'title' => t('Savings message.', array(), $options),
+    'default' => 'Purchase [remaining] more <strong>[product_title]</strong> and save an additional [savings] per item!',
+    'description' =>  t('Available tokens are: [remaining], [product_title] and [savings]', array(), $options),
+    'group' => 'uc_volume_pricing',
+    'localize' => TRUE,
+  );
+  
+  return $variables;
+}
+
+/**
  * Implements hook_node_load().
  */
 function uc_volume_pricing_node_load($nodes, $types) {
@@ -164,7 +188,7 @@ function uc_volume_pricing_form_uc_cart_view_form_alter(&$form, &$form_state) {
         if (!empty($volume_set) && $form['items'][$i]['qty']['#default_value'] < $volume_set->min) {
           $remaining = ($volume_set->min - $form['items'][$i]['qty']['#default_value']);
           $savings = uc_currency_format($product->sell_price - $volume_set->price);
-          $message = variable_get('uc_volume_pricing_cart_message', 'Purchase [remaining] more <strong>[product_title]</strong> and save an additional [savings] per item!');
+          $message = variable_get('uc_volume_pricing_cart_message', t('Purchase [remaining] more <strong>[product_title]</strong> and save an additional [savings] per item!'));
           
           // If quantity is not in the custom message, don't bother with format_plural
           if(strpos($message, '[remaining]') !== FALSE) {
