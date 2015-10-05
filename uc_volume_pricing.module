@@ -52,7 +52,7 @@ function uc_volume_pricing_variable_info($options) {
     'group' => 'uc_volume_pricing',
     'localize' => TRUE,
   );
-  
+
   return $variables;
 }
 
@@ -169,6 +169,15 @@ function uc_volume_pricing_uc_cart_alter(&$items) {
     $volume_price = db_query("SELECT price FROM {uc_volume_pricing} WHERE vid=:vid AND min <= :min ORDER BY price ASC LIMIT 1", array(':vid' => $product->vid, ':min' => $product->qty))->fetchField();
     if ($volume_price > 0) {
       $product->price = $volume_price;
+
+      // Re-add any attributes
+      if (module_exists('uc_attribute') && isset($product->data['attributes']) && is_array($product->data['attributes'])) {
+        $options = _uc_cart_product_get_options($product);
+        foreach ($options as $option) {
+          $product->price += $option['price'];
+        }
+      }
+
     }
   }
 }
@@ -189,7 +198,7 @@ function uc_volume_pricing_form_uc_cart_view_form_alter(&$form, &$form_state) {
           $remaining = ($volume_set->min - $form['items'][$i]['qty']['#default_value']);
           $savings = uc_currency_format($product->sell_price - $volume_set->price);
           $message = variable_get('uc_volume_pricing_cart_message', t('Purchase [remaining] more <strong>[product_title]</strong> and save an additional [savings] per item!'));
-          
+
           // If quantity is not in the custom message, don't bother with format_plural
           if(strpos($message, '[remaining]') !== FALSE) {
             $message_singular = str_replace(array('[remaining]', '[product_title]', '[savings]'), array('1', '!title', '!savings'), $message);
@@ -200,7 +209,7 @@ function uc_volume_pricing_form_uc_cart_view_form_alter(&$form, &$form_state) {
             $message = str_replace(array('[product_title]', '[savings]'), array('!titles', '!savings'), $message);
             $alert[] = t($message, array('!title' => $product->title, '!savings' => $savings));
           }
-          
+
         }
       }
       $num_rows++;
@@ -305,7 +314,7 @@ function uc_volume_pricing_form_alter(&$form, &$form_state, $form_id) {
  *   The form being passed in
  * @param array $form_state
  *   The form state
- * 
+ *
  * @return array
  *   The form element we are changing via ajax
  */
