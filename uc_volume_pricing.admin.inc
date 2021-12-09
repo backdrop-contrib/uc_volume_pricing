@@ -6,24 +6,26 @@
 
 /**
  * Implements hook_admin().
- * 
- * Store-wide uc_volume-pricing settings
+ *
+ * Store-wide uc_volume-pricing settings.
  */
 function uc_volume_pricing_admin() {
+  $config = config('uc_volume_pricing.settings');
   $form = array();
+  $form['#config'] = 'uc_volume_pricing.settings';
 
-  $form['uc_volume_pricing_show_in_cart'] = array(
+  $form['show_in_cart'] = array(
     '#type' => 'checkbox',
     '#title' => t('Show possible savings message in cart review.'),
-    '#default_value' => variable_get('uc_volume_pricing_show_in_cart', TRUE),
+    '#default_value' => $config->get('show_in_cart'),
   );
 
-  $form['uc_volume_pricing_cart_message'] = array(
+  $form['cart_message'] = array(
     '#type' => 'textarea',
     '#title' => t('Savings message.'),
-    '#default_value' => variable_get('uc_volume_pricing_cart_message', t('Purchase [remaining] more <strong>[product_title]</strong> and save an additional [savings] per item!')),
+    '#default_value' => $config->get('cart_message'),
     '#description' => t('Available tokens are: [remaining], [product_title] and [savings]'),
   );
-  
+
   return system_settings_form($form);
 }

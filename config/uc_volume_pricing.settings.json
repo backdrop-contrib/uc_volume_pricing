@@ -1,0 +1,5 @@
+{
+    "_config_name": "uc_volume_pricing.settings",
+    "uc_volume_pricing_show_in_cart": true,
+    "uc_volume_pricing_cart_message": "Purchase [remaining] more <strong>[product_title]</strong> and save [savings] per item!"
+}

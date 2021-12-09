@@ -1,11 +1,8 @@
 name = Volume Pricing
-description = Adds volume (bulk) pricing to Ubercart products
-dependencies[] = uc_product
-dependencies[] = ctools
+description = Adds volume (bulk) pricing to Ubercart products.
+dependencies[] = ubercart
 package = Ubercart - extra
-core = 7.x
+backdrop = 1.x
+type = module
 
 configure = admin/store/settings/volume_pricing
-
-; Views Handlers
-files[] = views/uc_volume_pricing.views.inc
